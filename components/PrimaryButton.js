@@ -3,15 +3,17 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Pressable,Alert } from 'react-native';
 
 // create a component
-const PrimaryButton = ({children}) => {
-    function handler(){
-        // console.log('Button pressed');
-        Alert.alert('Button Pressed', 'This is a button press action');
-        // Add your logic here for button press action.
-    }
+const PrimaryButton = ({children, onPress}) => {
+    
     return (
             <View style={styles.buttonOuterContainer}>
-                <Pressable onPress={handler} style={styles.buttonInnerContainer} android_ripple={{color: "#640233"}}>
+                <Pressable 
+                    onPress={onPress}  
+                    android_ripple={{color: "#640233"}}
+                    style={({pressed}) => pressed ?
+                    [styles.buttonInnerContainer, styles.pressed] :
+                    styles.buttonInnerContainer}
+                >
                     <Text style={styles.buttonText}>{children}</Text>
                 </Pressable>
             </View>
@@ -38,6 +40,9 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 16,
         color: '#fff',
+    },
+    pressed: {
+        opacity: 0.75,
     }
 });
 
